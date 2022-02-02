@@ -243,6 +243,13 @@ if (typeof J$ === 'undefined') {
         };
     }
 
+    function BREAK(arg) {
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis._break) {
+            sandbox.analysis._break(loc);
+        }
+    }
+
     // Ignore argument (identity).
     function I(val) {
         return val;
@@ -801,6 +808,7 @@ if (typeof J$ === 'undefined') {
     sandbox.L = L;
     sandbox.X1 = X1; // top level expression
     sandbox.Wi = Wi; // with statement
+    sandbox.BREAK = BREAK; // break statement
     sandbox.endExecution = endExecution;
 
     sandbox.S = S;
