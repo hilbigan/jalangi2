@@ -1457,6 +1457,24 @@ if (typeof J$ === 'undefined') {
         },
         "VariableDeclaration": function (node) {
             var declarations = MAP(node.declarations, function (def) {
+                if (!def.init) {
+                    def.init = {
+                        "type": "Identifier",
+                        "start": def.id.start,
+                        "end": def.id.end,
+                        "loc": {
+                            "start": {
+                                "line": def.loc.start.line,
+                                "column": def.loc.start.column
+                            },
+                            "end": {
+                                "line": def.loc.end.line,
+                                "column": def.loc.end.column
+                            }
+                        },
+                        "name": "undefined"
+                    };
+                }
                 if (def.init !== null) {
                     var init = wrapWrite(def.init, createLiteralAst(def.id.name), def.init, def.id, false, scope.isGlobal(def.id.name), true);
                     init = wrapWithX1(def.init, init);

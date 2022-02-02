@@ -394,7 +394,7 @@ if (typeof J$ === 'undefined') {
         var bFlags = decodeBitPattern(flags, 3); //[isGlobal, isScriptLocal, isDeclaration]
         var aret;
         if (sandbox.analysis && sandbox.analysis.write) {
-            aret = sandbox.analysis.write(iid, name, val, lhs, bFlags[0], bFlags[1]);
+            aret = sandbox.analysis.write(iid, name, val, lhs, bFlags[0], bFlags[1], bFlags[2]);
             if (aret) {
                 val = aret.result;
             }
