@@ -295,14 +295,14 @@ if (typeof J$ === 'undefined') {
     function PRE_DO_WHILE(arg){
         const loc = JSON.parse(arg);
         if (sandbox.analysis && sandbox.analysis.preDoWhile) {
-            sandbox.analysis.preWhile(loc);
+            sandbox.analysis.preDoWhile(loc);
         }
     }
 
     function POST_DO_WHILE(arg){
         const loc = JSON.parse(arg);
         if (sandbox.analysis && sandbox.analysis.postDoWhile) {
-            sandbox.analysis.postWhile(loc);
+            sandbox.analysis.postDoWhile(loc);
         }
     }
 
