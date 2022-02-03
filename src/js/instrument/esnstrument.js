@@ -685,7 +685,73 @@ if (typeof J$ === 'undefined') {
         return ret;
     }
 
-    function wrapBreak(node, ast) {
+    function wrapPrePost(node, preFunName, postFunName) {
+        printIidToLoc(node);
+        const ret = {
+            "type": "BlockStatement",
+            "body": [
+                {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                        "type": "CallExpression",
+                        "callee": {
+                            "type": "MemberExpression",
+                            "object": {
+                                "type": "Identifier",
+                                "name": "J$"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": preFunName
+                            },
+                            "computed": false,
+                            "optional": false
+                        },
+                        "arguments": [
+                            {
+                                "type": "Literal",
+                                "value": JSON.stringify(node.loc),
+                                "raw": "abc"
+                            }
+                        ],
+                        "optional": false
+                    }
+                },
+                node,
+                {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                        "type": "CallExpression",
+                        "callee": {
+                            "type": "MemberExpression",
+                            "object": {
+                                "type": "Identifier",
+                                "name": "J$"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": postFunName
+                            },
+                            "computed": false,
+                            "optional": false
+                        },
+                        "arguments": [
+                            {
+                                "type": "Literal",
+                                "value": JSON.stringify(node.loc),
+                                "raw": "abc"
+                            }
+                        ],
+                        "optional": false
+                    }
+                }
+            ]
+        }
+        transferLoc(ret, node);
+        return ret;
+    }
+
+    function wrapBreak(node) {
         printIidToLoc(node);
         const ret = {
             "type": "BlockStatement",
@@ -1419,7 +1485,7 @@ if (typeof J$ === 'undefined') {
 
     var visitorRRPost = {
         'BreakStatement': function (node) {
-            return wrapBreak(node, node);
+            return wrapBreak(node);
         },
         'Literal': function (node, context) {
             if (context === astUtil.CONTEXT.RHS) {
@@ -1582,13 +1648,20 @@ if (typeof J$ === 'undefined') {
             node.right = ret;
 
             node = wrapForIn(node, node.left, node.right, node.body);
-            //var name;
-            //if (node.left.type === 'VariableDeclaration') {
-            //    name = node.left.declarations[0].id.name;
-            //} else {
-            //    name = node.left.name;
-            //}
-            //node.body = wrapForInBody(node, node.body, name);
+            node = wrapPrePost(node, 'PRE_FOR_IN', 'POST_FOR_IN');
+
+            return node;
+        },
+        "ForStatement": function (node) {
+            node = wrapPrePost(node, 'PRE_FOR', 'POST_FOR');
+            return node;
+        },
+        "WhileStatement": function (node) {
+            node = wrapPrePost(node, 'PRE_WHILE', 'POST_WHILE');
+            return node;
+        },
+        "DoWhileStatement": function (node) {
+            node = wrapPrePost(node, 'PRE_DO_WHILE', 'POST_DO_WHILE');
             return node;
         },
         "CatchClause": function (node) {

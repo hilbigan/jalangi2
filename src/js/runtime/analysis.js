@@ -250,6 +250,62 @@ if (typeof J$ === 'undefined') {
         }
     }
 
+    function PRE_FOR(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.preFor) {
+            sandbox.analysis.preFor(loc);
+        }
+    }
+
+    function POST_FOR(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.postFor) {
+            sandbox.analysis.postFor(loc);
+        }
+    }
+
+    function PRE_FOR_IN(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.preForIn) {
+            sandbox.analysis.preForIn(loc);
+        }
+    }
+
+    function POST_FOR_IN(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.postForIn) {
+            sandbox.analysis.postForIn(loc);
+        }
+    }
+
+    function PRE_WHILE(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.preWhile) {
+            sandbox.analysis.preWhile(loc);
+        }
+    }
+
+    function POST_WHILE(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.postWhile) {
+            sandbox.analysis.postWhile(loc);
+        }
+    }
+
+    function PRE_DO_WHILE(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.preDoWhile) {
+            sandbox.analysis.preWhile(loc);
+        }
+    }
+
+    function POST_DO_WHILE(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.postDoWhile) {
+            sandbox.analysis.postWhile(loc);
+        }
+    }
+
     // Ignore argument (identity).
     function I(val) {
         return val;
@@ -809,6 +865,14 @@ if (typeof J$ === 'undefined') {
     sandbox.X1 = X1; // top level expression
     sandbox.Wi = Wi; // with statement
     sandbox.BREAK = BREAK; // break statement
+    sandbox.PRE_FOR = PRE_FOR;
+    sandbox.POST_FOR = POST_FOR;
+    sandbox.PRE_FOR_IN = PRE_FOR_IN;
+    sandbox.POST_FOR_IN = POST_FOR_IN;
+    sandbox.PRE_WHILE = PRE_WHILE;
+    sandbox.POST_WHILE = POST_WHILE;
+    sandbox.PRE_DO_WHILE = PRE_DO_WHILE;
+    sandbox.POST_DO_WHILE = POST_DO_WHILE;
     sandbox.endExecution = endExecution;
 
     sandbox.S = S;
