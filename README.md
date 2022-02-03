@@ -1,4 +1,23 @@
-Jalangi2
+# Modifications of the Fork
+
+New hooks:
+
+- _break
+- preFor
+- postFor
+- preForIn
+- postForIn
+- preWhile
+- postWhile
+- preDoWhile
+- postDoWhile
+
+Other modifications:
+
+- Add `isDeclaration` flag to variable write
+- Call declaration callback on declarations without initializer
+
+# Jalangi2
 =======
 ### Introduction
 
