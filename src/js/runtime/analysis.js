@@ -306,6 +306,13 @@ if (typeof J$ === 'undefined') {
         }
     }
 
+    function CATCH(arg, name){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis._catch) {
+            sandbox.analysis._catch(loc, name);
+        }
+    }
+
     // Ignore argument (identity).
     function I(val) {
         return val;
@@ -873,6 +880,7 @@ if (typeof J$ === 'undefined') {
     sandbox.POST_WHILE = POST_WHILE;
     sandbox.PRE_DO_WHILE = PRE_DO_WHILE;
     sandbox.POST_DO_WHILE = POST_DO_WHILE;
+    sandbox.CATCH = CATCH;
     sandbox.endExecution = endExecution;
 
     sandbox.S = S;

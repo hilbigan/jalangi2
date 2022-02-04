@@ -1049,6 +1049,40 @@ if (typeof J$ === 'undefined') {
                 createLiteralAst(name),
                 createIdentifierAst(name),
                 false, createIdentifierAst(name), true, true)[0]);
+            body.unshift(
+                {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                        "type": "CallExpression",
+                        "callee": {
+                            "type": "MemberExpression",
+                            "object": {
+                                "type": "Identifier",
+                                "name": "J$"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": "CATCH"
+                            },
+                            "computed": false,
+                            "optional": false
+                        },
+                        "arguments": [
+                            {
+                                "type": "Literal",
+                                "value": JSON.stringify(node.loc),
+                                "raw": "abc"
+                            },
+                            {
+                                "type": "Literal",
+                                "value": name,
+                                "raw": "name"
+                            }
+                        ],
+                        "optional": false
+                    }
+                }
+            );
         }
     }
 

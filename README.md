@@ -3,6 +3,7 @@
 New hooks:
 
 - _break
+- _catch (with additional parameter: declared exception name)
 - preFor
 - postFor
 - preForIn
