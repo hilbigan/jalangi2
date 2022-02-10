@@ -306,6 +306,20 @@ if (typeof J$ === 'undefined') {
         }
     }
 
+    function PRE_BLOCK(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.preBlock) {
+            sandbox.analysis.preBlock(loc);
+        }
+    }
+
+    function POST_BLOCK(arg){
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis.postBlock) {
+            sandbox.analysis.postBlock(loc);
+        }
+    }
+
     function CATCH(arg, name){
         const loc = JSON.parse(arg);
         if (sandbox.analysis && sandbox.analysis._catch) {
@@ -880,6 +894,8 @@ if (typeof J$ === 'undefined') {
     sandbox.POST_WHILE = POST_WHILE;
     sandbox.PRE_DO_WHILE = PRE_DO_WHILE;
     sandbox.POST_DO_WHILE = POST_DO_WHILE;
+    sandbox.PRE_BLOCK = PRE_BLOCK;
+    sandbox.POST_BLOCK = POST_BLOCK;
     sandbox.CATCH = CATCH;
     sandbox.endExecution = endExecution;
 

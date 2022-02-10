@@ -1698,6 +1698,10 @@ if (typeof J$ === 'undefined') {
             node = wrapPrePost(node, 'PRE_DO_WHILE', 'POST_DO_WHILE');
             return node;
         },
+        "BlockStatement": function (node) {
+            node = wrapPrePost(node, 'PRE_BLOCK', 'POST_BLOCK');
+            return node;
+        },
         "CatchClause": function (node) {
             var name;
             name = node.param.name;
