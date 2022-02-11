@@ -793,6 +793,48 @@ if (typeof J$ === 'undefined') {
         return ret;
     }
 
+    function wrapContinue(node) {
+        printIidToLoc(node);
+        const ret = {
+            "type": "BlockStatement",
+            "body": [
+                {
+                    "type": "ExpressionStatement",
+                    "expression": {
+                        "type": "CallExpression",
+                        "callee": {
+                            "type": "MemberExpression",
+                            "object": {
+                                "type": "Identifier",
+                                "name": "J$"
+                            },
+                            "property": {
+                                "type": "Identifier",
+                                "name": "CONTINUE"
+                            },
+                            "computed": false,
+                            "optional": false
+                        },
+                        "arguments": [
+                            {
+                                "type": "Literal",
+                                "value": JSON.stringify(node.loc),
+                                "raw": "abc"
+                            }
+                        ],
+                        "optional": false
+                    }
+                },
+                {
+                    "type": "ContinueStatement",
+                    "label": null
+                }
+            ]
+        }
+        transferLoc(ret, node);
+        return ret;
+    }
+
     function wrapEvalArg(ast) {
         printIidToLoc(ast);
         var ret = replaceInExpr(
@@ -1520,6 +1562,9 @@ if (typeof J$ === 'undefined') {
     var visitorRRPost = {
         'BreakStatement': function (node) {
             return wrapBreak(node);
+        },
+        'ContinueStatement': function (node) {
+            return wrapContinue(node);
         },
         'Literal': function (node, context) {
             if (context === astUtil.CONTEXT.RHS) {

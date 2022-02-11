@@ -250,6 +250,13 @@ if (typeof J$ === 'undefined') {
         }
     }
 
+    function CONTINUE(arg) {
+        const loc = JSON.parse(arg);
+        if (sandbox.analysis && sandbox.analysis._continue) {
+            sandbox.analysis._continue(loc);
+        }
+    }
+
     function PRE_FOR(arg){
         const loc = JSON.parse(arg);
         if (sandbox.analysis && sandbox.analysis.preFor) {
@@ -886,6 +893,7 @@ if (typeof J$ === 'undefined') {
     sandbox.X1 = X1; // top level expression
     sandbox.Wi = Wi; // with statement
     sandbox.BREAK = BREAK; // break statement
+    sandbox.CONTINUE = CONTINUE;
     sandbox.PRE_FOR = PRE_FOR;
     sandbox.POST_FOR = POST_FOR;
     sandbox.PRE_FOR_IN = PRE_FOR_IN;

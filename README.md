@@ -3,6 +3,7 @@
 New hooks:
 
 - _break
+- _continue
 - _catch (with additional parameter: declared exception name)
 - preFor
 - postFor
@@ -12,6 +13,8 @@ New hooks:
 - postWhile
 - preDoWhile
 - postDoWhile
+- preBlock
+- postBlock
 
 Other modifications:
 
